@@ -1,24 +1,48 @@
 <!DOCTYPE <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>GIPHY SEARCH</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="assets/style.css"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
+</head>
+
+<body>
+    <div id="buttons-view"></div>
     <div class="input-group">
         <p>Add an animal!!</p>
-      <input type="text" /><br><br>
-      <button type="button" class="btn btn-primary">Search!</button>
+        <input type="text" id = "animal-input" /><br><br>
+        <button type="button" id="add-animal" class="btn btn-primary">Search!</button>
     </div>
-  </body>
+    <script type="text/javascript">
+        //intitialize array with some animals 
+        var animals = ["bear", "cat", "dog", "bird", "fish", "spider"];
+
+        function makeButton(str) { //animals.map(makeButton) try it in console!!!
+            return `<button class ="animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
+        }
+
+
+        function renderButtons() {
+            $("#buttons-view").html(animals.map(makeButton));
+            // YOUR CODE GOES HERE
+        }
+
+        $("#add-animal").on("click", function (event) {
+            event.preventDefault(); //these are important look them up on your own time scruuub
+            var animal = $("#animal-input").val()
+            animals.push(animal);
+            renderButtons();
+            // YOUR CODE GOES HERE
+        })
+
+        // Calling the renderButtons function to display the initial list of movies
+        renderButtons();
+    </script>
+</body>
+
 </html>

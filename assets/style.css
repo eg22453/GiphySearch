@@ -1,7 +1,7 @@
 .input-group{
     float:right;
+    margin: 10px;
     margin-top: 10%;
-    margin-right: 2%;
     
 }
 
@@ -16,4 +16,6 @@ p{
 .animal{
     margin: 10px;
 }
+
+
 

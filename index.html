@@ -15,7 +15,7 @@
     <div id="buttons-view"></div>
     <div class="input-group">
         <p>Add an animal!!</p>
-        <input type="text" id = "animal-input" /><br><br>
+        <input type="text" id="animal-input" /><br><br>
         <button type="button" id="add-animal" class="btn btn-primary">Search!</button>
     </div>
     <script type="text/javascript">
@@ -32,7 +32,7 @@
             // YOUR CODE GOES HERE
         }
 
-        $("#add-animal").on("click", function (event) {
+        $("#add-animal").on("click", function () {
             event.preventDefault(); //these are important look them up on your own time scruuub
             var animal = $("#animal-input").val()
             animals.push(animal);
@@ -40,8 +40,32 @@
             // YOUR CODE GOES HERE
         })
 
+
+
         // Calling the renderButtons function to display the initial list of movies
         renderButtons();
+
+
+
+        //BELOW CODE NEEDS TO BE CHANGED A LOT
+        $(document).on('click', '.animal', function () {
+            console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
+            //THAT any button that is clicked with the class movie will be printed to the console/ or to a var etc
+
+            var animal = $(this).text()
+
+            var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (movie) {
+                console.log(movie);
+                $('#movie-view').html(`
+                    <h1>${movie.Title}</h1>
+                    <p>Plot: ${movie.Plot}</p> 
+                    `) //THIS BLOCK OF CODE IS SUPER IMPORTANT FOR HW
+            });
+        })
     </script>
 </body>
 

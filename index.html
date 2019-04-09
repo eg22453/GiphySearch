@@ -18,21 +18,26 @@
         <input type="text" id="animal-input" /><br><br>
         <button type="button" id="add-animal" class="btn btn-primary">Search!</button>
     </div>
+
+
+    <div id = "animal-view">
+        <!--Here is the div where we will insert our animal gifs-->
+    </div>
     <script type="text/javascript">
         //intitialize array with some animals 
         var animals = ["bear", "cat", "dog", "bird", "fish", "spider"];
 
         function makeButton(str) { //animals.map(makeButton) try it in console!!!
-            return `<button class ="animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
+            return `<button class =" btn btn-primary animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
         }
 
 
         function renderButtons() {
             $("#buttons-view").html(animals.map(makeButton));
-            // YOUR CODE GOES HERE
+            
         }
 
-        $("#add-animal").on("click", function () {
+        $("#add-animal").on("click", function (event) {
             event.preventDefault(); //these are important look them up on your own time scruuub
             var animal = $("#animal-input").val()
             animals.push(animal);
@@ -49,21 +54,22 @@
 
         //BELOW CODE NEEDS TO BE CHANGED A LOT
         $(document).on('click', '.animal', function () {
-            console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
+           // console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
             //THAT any button that is clicked with the class movie will be printed to the console/ or to a var etc
 
             var animal = $(this).text()
 
-            var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=8";
             $.ajax({
                 url: queryURL,
                 method: "GET"
-            }).then(function (movie) {
-                console.log(movie);
-                $('#movie-view').html(`
-                    <h1>${movie.Title}</h1>
-                    <p>Plot: ${movie.Plot}</p> 
-                    `) //THIS BLOCK OF CODE IS SUPER IMPORTANT FOR HW
+            }).then(function (animal) {
+                console.log(animal.data[0].url)
+                console.log(animal.data)
+                var animalurl = animal.data[0].bitly_gif_url;
+                $('#animal-view').html(`<img src=${animalurl} alt = "a picture" />`)
+                //$('#animal-view').html(`<img src=${animal.url} />`) //THIS BLOCK OF CODE IS SUPER IMPORTANT FOR HW
             });
         })
     </script>

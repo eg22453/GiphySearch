@@ -20,7 +20,7 @@
     </div>
 
 
-    <div id = "animal-view">
+    <div id="animal-view">
         <!--Here is the div where we will insert our animal gifs-->
     </div>
     <script type="text/javascript">
@@ -34,7 +34,7 @@
 
         function renderButtons() {
             $("#buttons-view").html(animals.map(makeButton));
-            
+
         }
 
         $("#add-animal").on("click", function (event) {
@@ -54,23 +54,23 @@
 
         //BELOW CODE NEEDS TO BE CHANGED A LOT
         $(document).on('click', '.animal', function () {
-           // console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
+            // console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
             //THAT any button that is clicked with the class movie will be printed to the console/ or to a var etc
 
             var animal = $(this).text()
 
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-            animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=8";
+                animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=8";
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (animal) {
-                console.log(animal.data[0].url)
                 console.log(animal.data)
-                var animalurl = animal.data[0].bitly_gif_url;
-                $('#animal-view').html(`<img src=${animalurl} alt = "a picture" />`)
-                //$('#animal-view').html(`<img src=${animal.url} />`) //THIS BLOCK OF CODE IS SUPER IMPORTANT FOR HW
+                var giphyURL = animal.data[0].images.fixed_height_small_still.url;
+                var newImg = $("<img>").attr("src", giphyURL);
+                $("#animal-view").append(newImg);
             });
+
         })
     </script>
 </body>

@@ -27,7 +27,7 @@
         //intitialize array with some animals 
         var animals = ["bear", "cat", "dog", "bird", "fish", "spider"];
 
-        function makeButton(str) { //animals.map(makeButton) try it in console!!!
+        function makeButton(str) { // function to make new buttons based on a string
             return `<button class =" btn btn-primary animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
         }
 
@@ -37,12 +37,13 @@
 
         }
 
+
+        //adds new animal button that from the user input
         $("#add-animal").on("click", function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
             var animal = $("#animal-input").val()
             animals.push(animal);
             renderButtons();
-            // YOUR CODE GOES HERE
         })
 
 
@@ -63,16 +64,22 @@
                 url: queryURL,
                 method: "GET"
             }).then(function (animal) {
-                console.log(animal.data)
-                for (i =0; i<10;i++){
-                var ratingparagraph =$("<p>")
-                ratingparagraph.text("rating :"+ animal.data[i].rating)
-                var giphyURL = animal.data[i].images.fixed_height.url;
-                var newImg = $("<img>").attr("src", giphyURL);
-                var newdiv=$("<div>").attr("id", "ratingplusimage" )
-                 $("#animal-view").append(newdiv);
-                $(newdiv).append(ratingparagraph);
-                $(newdiv).append(newImg);
+
+                //loop through all 10 gifs limited by limit parameter
+                for (i = 0; i < 10; i++) {
+                    var ratingparagraph = $("<p>")
+                    ratingparagraph.text("rating :" + animal.data[i].rating)
+                    var giphyURL = animal.data[i].images.fixed_height.url;
+                    var newImg = $("<img>").attr("src", giphyURL);
+
+                    //new div will couple each image/rating pair
+                    var newdiv = $("<div>").attr("id", "ratingplusimage")
+                    //animal-view div will then have a fresh newdiv container added
+                    $("#animal-view").append(newdiv);
+
+                    //rating and image will then be placed inside this most recent newdiv
+                    $(newdiv).append(ratingparagraph);
+                    $(newdiv).append(newImg);
                 }
             });
 

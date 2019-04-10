@@ -66,7 +66,7 @@
                 method: "GET"
             }).then(function (animal) {
                 console.log(animal.data)
-                var giphyURL = animal.data[0].images.fixed_height_small_still.url;
+                var giphyURL = animal.data[0].images.fixed_height.url;
                 var newImg = $("<img>").attr("src", giphyURL);
                 $("#animal-view").append(newImg);
             });

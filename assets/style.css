@@ -11,11 +11,26 @@ input{
 
 p{
     font-weight: bold;
+    margin:10px;
+   
 }
 
 .animal{
     margin: 10px;
 }
+
+img{
+    margin:10px;
+}
+
+#animal-view{
+    width:80%;
+}
+
+#ratingplusimage{
+    display: inline-block;
+}
+
 
 
 

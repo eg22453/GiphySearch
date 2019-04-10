@@ -38,7 +38,7 @@
         }
 
         $("#add-animal").on("click", function (event) {
-            event.preventDefault(); //these are important look them up on your own time scruuub
+            event.preventDefault(); 
             var animal = $("#animal-input").val()
             animals.push(animal);
             renderButtons();
@@ -52,10 +52,8 @@
 
 
 
-        //BELOW CODE NEEDS TO BE CHANGED A LOT
+        //BELOW Code ensures that each button with animal class will behave appropriately
         $(document).on('click', '.animal', function () {
-            // console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
-            //THAT any button that is clicked with the class movie will be printed to the console/ or to a var etc
             $("#animal-view").html("")
             var animal = $(this).text()
 
@@ -65,11 +63,16 @@
                 url: queryURL,
                 method: "GET"
             }).then(function (animal) {
-                //console.log(animal.data)
+                console.log(animal.data)
                 for (i =0; i<10;i++){
+                var ratingparagraph =$("<p>")
+                ratingparagraph.text("rating :"+ animal.data[i].rating)
                 var giphyURL = animal.data[i].images.fixed_height.url;
                 var newImg = $("<img>").attr("src", giphyURL);
-                $("#animal-view").append(newImg);
+                var newdiv=$("<div>").attr("id", "ratingplusimage" )
+                 $("#animal-view").append(newdiv);
+                $(newdiv).append(ratingparagraph);
+                $(newdiv).append(newImg);
                 }
             });
 

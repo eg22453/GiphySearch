@@ -56,19 +56,21 @@
         $(document).on('click', '.animal', function () {
             // console.log($(this).text()); //THIS IS SUPER IMPORTANT, BASICALLY IT ENSURES
             //THAT any button that is clicked with the class movie will be printed to the console/ or to a var etc
-
+            $("#animal-view").html("")
             var animal = $(this).text()
 
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=8";
+                animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=10";
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (animal) {
-                console.log(animal.data)
-                var giphyURL = animal.data[0].images.fixed_height.url;
+                //console.log(animal.data)
+                for (i =0; i<10;i++){
+                var giphyURL = animal.data[i].images.fixed_height.url;
                 var newImg = $("<img>").attr("src", giphyURL);
                 $("#animal-view").append(newImg);
+                }
             });
 
         })

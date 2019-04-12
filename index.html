@@ -25,7 +25,7 @@
     </div>
     <script type="text/javascript">
         //intitialize array with some animals 
-        var animals = ["bear", "cat", "dog", "bird", "fish", "spider"];
+        var animals = ["bear", "cat", "dog", "bird", "fish", "spider", "iron man"];
 
         function makeButton(str) { // function to make new buttons based on a string
             return `<button class =" btn btn-primary animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
@@ -64,7 +64,7 @@
                 url: queryURL,
                 method: "GET"
             }).then(function (animal) {
-
+                console.log(animal)
                 //loop through all 10 gifs limited by limit parameter
                 for (i = 0; i < 10; i++) {
                     var ratingparagraph = $("<p>")

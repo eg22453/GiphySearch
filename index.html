@@ -1,0 +1,90 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <title>GIPHY SEARCH</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
+</head>
+
+<body>
+    <div id="buttons-view"></div>
+    <div class="input-group">
+        <p>Add an animal!!</p>
+        <input type="text" id="animal-input" /><br><br>
+        <button type="button" id="add-animal" class="btn btn-primary">Search!</button>
+    </div>
+
+
+    <div id="animal-view">
+        <!--Here is the div where we will insert our animal gifs-->
+    </div>
+    <script type="text/javascript">
+        //intitialize array with some animals 
+        var animals = ["bear", "cat", "dog", "bird", "fish", "spider"];
+
+        function makeButton(str) { // function to make new buttons based on a string
+            return `<button class =" btn btn-primary animal">${str}</button>` //Note that these are template literals? Anyway they are backticks NOT single quotes!!!!
+        }
+
+
+        function renderButtons() {
+            $("#buttons-view").html(animals.map(makeButton));
+
+        }
+
+
+        //adds new animal button that from the user input
+        $("#add-animal").on("click", function (event) {
+            event.preventDefault();
+            var animal = $("#animal-input").val()
+            animals.push(animal);
+            renderButtons();
+        })
+
+
+
+        // Calling the renderButtons function to display the initial list of movies
+        renderButtons();
+
+
+
+        //BELOW Code ensures that each button with animal class will behave appropriately
+        $(document).on('click', '.animal', function () {
+            $("#animal-view").html("")
+            var animal = $(this).text()
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                animal + "&api_key=wavgXDUED5aypLNBe6vedQk5cveSXkED&limit=10";
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (animal) {
+
+                //loop through all 10 gifs limited by limit parameter
+                for (i = 0; i < 10; i++) {
+                    var ratingparagraph = $("<p>")
+                    ratingparagraph.text("rating :" + animal.data[i].rating)
+                    var giphyURL = animal.data[i].images.fixed_height.url;
+                    var newImg = $("<img>").attr("src", giphyURL);
+
+                    //new div will couple each image/rating pair
+                    var newdiv = $("<div>").attr("id", "ratingplusimage")
+                    //animal-view div will then have a fresh newdiv container added
+                    $("#animal-view").append(newdiv);
+
+                    //rating and image will then be placed inside this most recent newdiv
+                    $(newdiv).append(ratingparagraph);
+                    $(newdiv).append(newImg);
+                }
+            });
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+.input-group{
+    float:right;
+    margin: 10px;
+    margin-top: 10%;
+    
+}
+
+input{
+    line-height: 28px;
+}
+
+p{
+    font-weight: bold;
+    margin:10px;
+   
+}
+
+.animal{
+    margin: 10px;
+}
+
+img{
+    margin:10px;
+}
+
+#animal-view{
+    width:80%;
+}
+
+#ratingplusimage{
+    display: inline-block;
+}
+
+
+
+
